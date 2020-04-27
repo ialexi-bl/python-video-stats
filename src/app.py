@@ -15,7 +15,7 @@ class Test(Thread):
         self.name = name
 
     def run1(self, n, videos):  # 1st table
-        # TODO: find bitrate, audio info; run tests, fill results
+        # TODO: find bitrate; run tests, fill results
         pass
 
     def run2(self, n, videos):  # 2nd table
