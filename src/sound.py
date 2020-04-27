@@ -1,10 +1,10 @@
 import wave
 from pydub import AudioSegment
-from moviepy.editor import VideoFileClip
+from moviepy.editor import AudioFileClip
 
 
 def get_wav(source, thread):
-    VideoFileClip(source).audio.write_audiofile(f"{thread}.mp3")
+    AudioFileClip(f"./{source}").write_audiofile(f"./{thread}.mp3")
 
 
 def get_length(source, thread):
@@ -22,3 +22,6 @@ def bad_sound(source, thread):
         if abs(song[i] - song[i + 1]) > 15:
             return "bad"
     return "good"
+
+
+print(get_length('GH012651.MP4', 0))
