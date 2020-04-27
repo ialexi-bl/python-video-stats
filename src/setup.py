@@ -4,5 +4,5 @@ setup(
     name="Video quality assesment",
     version="1.0",
     description="NTI Video quality assesment",
-    install_requires=["opencv-python", "numpy", "xlsxwriter", "pydub"],
+    install_requires=["opencv-python", "numpy", "xlsxwriter", "pydub", "get-video-properties"],
 )

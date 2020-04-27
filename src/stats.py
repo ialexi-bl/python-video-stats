@@ -1,5 +1,5 @@
 import cv2
-import numpy as np
+from videoprops import get_video_properties, get_audio_properties
 
 
 def stats(path):
@@ -17,4 +17,8 @@ def stats(path):
             break
         count += 1
     time = count / fps
-    return name, h, w, time, fps, container
+    props = get_video_properties(path)
+    videocodec = props['codec_name']
+    props = get_audio_properties(path)
+    audiocodec, channels, rate = props["codec_name"], props["channels"], props["sample_rate"]
+    return name, h, w, time, fps, container, videocodec, audiocodec, channels, rate
