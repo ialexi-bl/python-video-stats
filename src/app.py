@@ -20,7 +20,7 @@ class Test(Thread):
 
 
 def test1():
-    level1 = wb(expanduser('~\\Desktop\\Критерии 1-го уровня.xlsx'))
+    level1 = wb(expanduser("~\\Desktop\\Критерии 1-го уровня.xlsx"))
     for i in range(8):
         name = "Thread #%s" % i
         my_thread = Test(name)
@@ -29,7 +29,7 @@ def test1():
 
 
 def test2():
-    level2 = wb(expanduser('~\\Desktop\\Критерии 2-го уровня.xlsx'))
+    level2 = wb(expanduser("~\\Desktop\\Критерии 2-го уровня.xlsx"))
     for i in range(8):
         name = "Thread #%s" % i
         my_thread = Test(name)
@@ -38,7 +38,7 @@ def test2():
 
 
 def final_test():
-    last = wb(expanduser('~\\Desktop\\Крупности.xlsx'))
+    last = wb(expanduser("~\\Desktop\\Крупности.xlsx"))
     for i in range(8):
         name = "Thread #%s" % i
         my_thread = Test(name)
