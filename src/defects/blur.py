@@ -1,4 +1,4 @@
-from .config import BLUR_THRESHOLD
+from ..config import BLUR_THRESHOLD
 import numpy as np
 import cv2
 

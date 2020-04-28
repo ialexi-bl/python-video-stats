@@ -1,7 +1,7 @@
 from moviepy.editor import AudioFileClip
 from os.path import join, dirname
-from config import TEMP_FOLDER
 from pydub import AudioSegment
+from .config import TEMP_FOLDER
 
 
 def bad_sound(path: str, thread):

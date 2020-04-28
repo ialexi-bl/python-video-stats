@@ -1,4 +1,3 @@
-from src import app, setup
+from src import app
 
-
-app.main(1)
+app.launch()
