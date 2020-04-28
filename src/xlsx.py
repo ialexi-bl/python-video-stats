@@ -17,8 +17,8 @@ class Xlsx:
         self.ws = self.wb.add_worksheet("Лист 1")
 
         self.count = 2
-        self.write_titles()
         self.task = table
+        self.write_titles()
 
     def write_titles(self):
         if self.task == 1:
@@ -65,7 +65,9 @@ class Xlsx:
             self.ws.write(f"D{c}", stats["container"])
             self.ws.write(f"E{c}", stats["width"])
             self.ws.write(f"F{c}", stats["height"])
-            self.ws.write(f"G{c}", 'да' if stats["width"] / stats["height"] == 16 / 9 else 'нет')
+            self.ws.write(
+                f"G{c}", "да" if stats["width"] / stats["height"] == 16 / 9 else "нет"
+            )
             self.ws.write(f"H{c}", stats["created"])
             self.ws.write(f"I{c}", stats["fps"])
             self.ws.write(f"J{c}", stats["bitrate"])

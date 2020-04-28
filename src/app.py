@@ -16,7 +16,7 @@ def main(table, dirname):
     videos = [
         path.join(dirname, filename)
         for filename in filenames
-        if filename[-3:] in ["mp4", "mov", "avi"]
+        if filename[-3:].lower() in ["mp4", "mov", "avi"]
     ]
 
     xlsx = Xlsx(table)
