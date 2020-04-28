@@ -27,7 +27,7 @@ class Ffmpeg:
         return json.loads(output)
 
     def video2audio(self, file):
-        audio_file = os.join(self.tempfolder.name, path.basename(file) + ".mp3")
+        audio_file = path.join(self.tempfolder.name, path.basename(file) + ".mp3")
         self.run_ffmpeg(f"-i video.mp4 -f {file} -ab 192000 -vn {audio_file}")
         if not path.exists(audio_file):
             return None

@@ -11,6 +11,11 @@ from .defects.horizon import check_rotation_deffects
 
 
 first_res = dict()
+second_res = dict()
+
+
+def get_results():
+    return first_res, second_res
 
 
 class FirstTableThread(Thread):
@@ -48,10 +53,13 @@ class SecondTableThread(Thread):
                 res["orientation"] = "Г"
             rot = check_rotation_deffects(video)
             res["rotated"] = "да" if rot[1] else "нет"
-            res["unstable"] = "да" if rot[1] else "нет"
+            res["unstable"] = "да" if rot[0] else "нет"
             res["unfocused"] = "да" if blur_check(video) else "нет"
             res["sound"] = bad_sound(video, ffmpeg)
+            res["name"] = basename(video)
             # TODO: res['white_balanced'], eyes
+
+            second_res.update({video: res})
             self.xlsx.write_stats(basename(video), res)
 
 
