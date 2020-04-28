@@ -1,5 +1,6 @@
 from .tables import *
 from .xlsx import Xlsx
+from .chooser import choose_best
 from os import path
 import os
 
@@ -59,7 +60,7 @@ def launch():
     print("Введите путь к папке с видео:")
     dirname = input()
     main(table, path.expanduser(dirname))
-
+    choose_best()
     print("Enter, чтобы закрыть...")
     try:
         input()

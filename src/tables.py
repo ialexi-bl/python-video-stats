@@ -47,8 +47,15 @@ class SecondTableThread(Thread):
             res["unstable"] = "да" if rot[0] else "нет"
             res["unfocused"] = "да" if blur_check(video) else "нет"
             res["sound"] = bad_sound(video, ffmpeg)
+            res["name"] = basename(video)
             # TODO: res['white_balanced'], eyes
+<<<<<<< HEAD
             self.xlsx.write_defects(video, res)
+=======
+
+            second_res.update({video: res})
+            self.xlsx.write_stats(basename(video), res)
+>>>>>>> 105b06ceb549be4d1f55f9f8959dca7f1d03f05d
 
 
 class ThirdTableThread(Thread):
