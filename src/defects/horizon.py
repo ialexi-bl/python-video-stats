@@ -45,3 +45,22 @@ def is_horizon_rotated(frame: np.array) -> bool:
             return True
 
     return False
+
+
+def check_rotation_deffects(source):
+    video = cv2.VideoCapture(source)
+    mn, mx = 1000000000, 0
+    prev = get_rotation(video.read()[1])
+    rotated = 0
+    while video.isOpened():
+        ret, frame = video.read()
+        if not ret:
+            break
+        cur = get_rotation(frame)
+        if is_horizon_rotated(frame):
+            rotated = 1
+        if abs(prev - cur) < 30:  # if more, it must be some stupid bug
+            mn = min(mn, cur)
+            mx = max(mx, cur)
+        prev = cur
+    return mx - mn > 20, rotated  # при тряске будет очень большое значени еиз-за погрешности
