@@ -2,7 +2,7 @@ from threading import Thread
 from os.path import basename
 from .stats import get_stats
 from .xlsx import Xlsx
-from .defects.blur import is_blurred
+from .defects.blur import blur_check
 from .sound import bad_sound
 from .brightness import bad_brightness
 from .slideshow import check_slideshow
@@ -37,6 +37,14 @@ class SecondTableThread(Thread):
         for video in self.videos:
             res['slideshow'] = check_slideshow(video)
             res['bad_brightness'] = bad_brightness(video)
+            h, w = first_res[video]["height"], first_res[video]["width"]
+            if h > w:
+                res['orientation'] = 'вертик'
+            else:
+                res['orientation'] = 'горизонт'
+
+            res['unfocused'] = 'да' if blur_check(video) else 'нет'
+
             # TODO
             self.xlsx.write_stats(basename(video), res)
 
