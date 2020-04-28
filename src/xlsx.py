@@ -44,9 +44,9 @@ class Xlsx:
         self.ws.write(f"G{c}", round(stats["width"] / stats["height"], 8))
         self.ws.write(f"H{c}", stats["created"])
         self.ws.write(f"I{c}", stats["fps"])
-        self.ws.write(f"J{c}", "Not implemented")
+        self.ws.write(f"J{c}", stats["bitrate"])
         self.ws.write(f"K{c}", "Моно" if stats["channels"] == 1 else "Стерео")
-        self.ws.write(f"L{c}", stats["rate"])
+        self.ws.write(f"L{c}", stats["frequency"])
         self.count += 1
 
     def save(self):

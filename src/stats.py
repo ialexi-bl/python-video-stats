@@ -26,30 +26,20 @@ def get_stats(path: str):
         video.get(CAP_PROP_FRAME_WIDTH),
     )
 
-    print("calculating frames")
-    count = 0
-    # while video.isOpened():
-    #     ret, frame = video.read()
-    #     if ret is False:
-    #         break
-    #     count += 1
+    video.set(cv2.CAP_PROP_POS_AVI_RATIO, 1)
+    count = round(video.get(cv2.CAP_PROP_POS_FRAMES), 2)
 
     time = count / fps
 
-    # props = get_video_properties(path)
-    videocodec = ""  # props["codec_name"]
-
     audio = AudioFileClip(path)
+    bitdepth = audio.reader.nbytes * 8
     channels = audio.nchannels
-    rate = ""
+    frequency = audio.fps
+    # in Kbit
+    print(frequency, channels, bitdepth)
+    bitrate = frequency * 1000 * channels * bitdepth / 1024
 
     # ~/Videos/теш/Надводная и подводная робототехника
-    # audiocodec, channels, rate = (
-    #     props["codec_name"],
-    #     props["channels"],
-    #     props["sample_rate"],
-    # )
-    audiocodec = ""
     created = datetime.datetime.fromtimestamp(os.path.getctime(path))
     size = os.path.getsize(path)
 
@@ -60,10 +50,9 @@ def get_stats(path: str):
         "duration": time,
         "fps": fps,
         "container": container,
-        "videocodec": videocodec,
-        "audiocodec": audiocodec,
         "channels": channels,
-        "rate": rate,
         "created": created,
         "size": size,
+        "frequency": frequency,
+        "bitrate": bitrate,
     }
