@@ -43,7 +43,20 @@ def main(table, dirname):
 
 
 def launch():
+    print(
+        "Введите нужную таблицу (1: характеристики, 2: дефекты записи, 3: крупности [НЕ РАБОТАЕТ])"
+    )
+
+    try:
+        table = int(input())
+        if table not in [1, 2, 3]:
+            raise Exception()
+    except:
+        print("Неверная таблица")
+        launch()
+        return
+
     print("Введите путь к папке с видео:")
     dirname = input()
-    main(1, path.expanduser(dirname))
+    main(table, path.expanduser(dirname))
     input()
