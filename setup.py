@@ -10,6 +10,5 @@ setup(
         "xlsxwriter",
         "pydub",
         "get-video-properties",
-        "moviepy",
     ],
 )

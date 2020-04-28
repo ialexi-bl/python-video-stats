@@ -5,6 +5,7 @@ import json
 import os
 
 FFPROBE_PATH = os.path.join(os.path.dirname(__file__), "lib\\ffprobe.exe")
+print(FFPROBE_PATH)
 
 
 def run_ffprobe(args):

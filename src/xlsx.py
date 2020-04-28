@@ -13,7 +13,8 @@ class Xlsx:
         if table not in xlsx_paths:
             raise Exception("Invalid table")
 
-        self.wb = Workbook(xlsx_paths[table])
+        self.path = xlsx_paths[table]
+        self.wb = Workbook(self.path)
         self.ws = self.wb.add_worksheet("Лист 1")
 
         self.count = 2
@@ -94,3 +95,4 @@ class Xlsx:
 
     def save(self):
         self.wb.close()
+        print(f"Создан файл {self.path}")

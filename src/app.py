@@ -46,3 +46,4 @@ def launch():
     print("Введите путь к папке с видео:")
     dirname = input()
     main(1, path.expanduser(dirname))
+    input()
