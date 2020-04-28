@@ -19,7 +19,6 @@ class FirstTableThread(Thread):
         self.xlsx = xlsx
 
     def run(self):
-        print(self.videos)
         for video in self.videos:
             stats = get_stats(video)
             first_res.update({video: stats})

@@ -20,6 +20,12 @@ class Xlsx:
         self.task = table
         self.write_titles()
 
+    def write_value(self, cell, check, format=lambda x: x):
+        if check is not None:
+            self.ws.write(cell, format(check))
+        else:
+            self.ws.write(cell, "?")
+
     def write_titles(self):
         if self.task == 1:
             self.ws.write("A1", "Имя")
@@ -58,25 +64,32 @@ class Xlsx:
     def write_stats(self, filename, stats):
         c = self.count
 
-        if self.task == 1:
-            self.ws.write(f"A{c}", filename)
-            self.ws.write(f"B{c}", stats["size"])
-            self.ws.write(f"C{c}", stats["duration"])
-            self.ws.write(f"D{c}", stats["container"])
-            self.ws.write(f"E{c}", stats["width"])
-            self.ws.write(f"F{c}", stats["height"])
-            self.ws.write(
-                f"G{c}", "да" if stats["width"] / stats["height"] == 16 / 9 else "нет"
-            )
-            self.ws.write(f"H{c}", stats["created"])
-            self.ws.write(f"I{c}", stats["fps"])
-            self.ws.write(f"J{c}", stats["bitrate"])
-            self.ws.write(f"K{c}", "Моно" if stats["channels"] == 1 else "Стерео")
-            self.ws.write(f"L{c}", stats["frequency"])
-        elif self.task == 2:
-            pass
-        else:
-            pass
+        self.write_value(f"A{c}", stats["name"])
+        # Convert to Mb
+        self.write_value(f"B{c}", stats["size"], lambda x: round(x / 2 * 20, 4))
+        self.write_value(f"C{c}", stats["duration"], lambda x: round(x, 4))
+        self.write_value(f"D{c}", stats["container"])
+        self.write_value(f"E{c}", stats["width"])
+        self.write_value(f"F{c}", stats["height"])
+        self.write_value(
+            f"G{c}",
+            stats["width"] and stats["height"] and [stats["width"], stats["height"]],
+            lambda x: "да" if x[0] / x[1] == 16 / 9 else "нет",
+        )
+        self.write_value(
+            f"H{c}",
+            stats["created"],
+            lambda x: "{}-{}-{} {}-{}-{}".format(
+                x.year, x.month, x.day, x.hour, x.minute, x.second,
+            ),
+        )
+        self.write_value(f"I{c}", stats["fps"])
+        self.write_value(f"J{c}", stats["bitrate"])
+        self.write_value(
+            f"K{c}", stats["channels"], lambda x: "Моно" if x == 1 else "Стерео"
+        )
+        self.write_value(f"L{c}", stats["frequency"])
+
         self.count += 1
 
     def save(self):
