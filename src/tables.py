@@ -6,7 +6,6 @@ from .defects.blur import blur_check
 from .sound import bad_sound
 from .brightness import bad_brightness
 from .slideshow import check_slideshow
-from .defects.horizon import check_rotation_deffects
 
 
 first_res = dict()
@@ -43,9 +42,7 @@ class SecondTableThread(Thread):
                 res['orientation'] = 'В'
             else:
                 res['orientation'] = 'Г'
-            rot = check_rotation_deffects(video)
-            res['rotated'] = 'да' if rot[1] else 'нет'
-            res['unstable'] = 'да' if rot[1] else 'нет'
+
             res['unfocused'] = 'да' if blur_check(video) else 'нет'
             res['sound'] = bad_sound(video, self.name)
             # TODO
