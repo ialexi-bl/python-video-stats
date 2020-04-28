@@ -6,7 +6,8 @@ HORIZON_THRESHOLD = 97
 
 
 def get_rotation(frame: np.array) -> float:
-    dft = cv2.dft(frame.astype(np.float32).copy(), flags=cv2.DFT_COMPLEX_OUTPUT)
+    img = cv2.cvtColor(frame.copy(), cv2.COLOR_BGR2GRAY).astype(np.float32)
+    dft = cv2.dft(img, flags=cv2.DFT_COMPLEX_OUTPUT)
     dft = np.fft.fftshift(dft)
     dft = 20 * np.log(cv2.magnitude(dft[:, :, 0], dft[:, :, 1]))
     dft = dft / np.max(dft) * 255
@@ -40,7 +41,6 @@ def is_horizon_rotated(frame: np.array) -> bool:
         return True
 
     for theta in thetas:
-        print(theta, theta % 90)
         if 10 < theta % 90 < 80:
             return True
 
@@ -50,17 +50,20 @@ def is_horizon_rotated(frame: np.array) -> bool:
 def check_rotation_deffects(source):
     video = cv2.VideoCapture(source)
     mn, mx = 1000000000, 0
-    prev = get_rotation(video.read()[1])
+    prev = get_rotation(video.read()[1])[0]
     rotated = 0
     while video.isOpened():
         ret, frame = video.read()
         if not ret:
             break
-        cur = get_rotation(frame)
+        cur = get_rotation(frame)[0]
         if is_horizon_rotated(frame):
             rotated = 1
         if abs(prev - cur) < 30:  # if more, it must be some stupid bug
             mn = min(mn, cur)
             mx = max(mx, cur)
         prev = cur
-    return mx - mn > 20, rotated  # при тряске будет очень большое значени еиз-за погрешности
+    return (
+        mx - mn > 20,
+        rotated,
+    )  # при тряске будет очень большое значени еиз-за погрешности

@@ -95,6 +95,25 @@ class Xlsx:
 
         self.count += 1
 
+    def write_defects(self, filename, data):
+        c = self.count
+
+        self.write_value(f"A{c}", path.basename(filename))
+        # Convert to Mb
+        self.write_value(f"B{c}", data["orientation"])
+        self.write_value(f"C{c}", data["bad_brightness"])
+        self.write_value(f"D{c}", data["rotated"])
+        self.write_value(f"E{c}", data["unfocused"])
+        self.write_value(f"F{c}", data["sound"])
+        self.write_value(f"G{c}", data["slideshow"])
+        self.write_value(f"H{c}", data["unstable"])
+        # self.write_value(f"I{c}", data["white_balance"])
+        self.write_value(f"I{c}", "?")
+        # self.write_value(f"J{c}", stats["bitrate"])
+        self.write_value(f"J{c}", "?")
+
+        self.count += 1
+
     def save(self):
         self.wb.close()
         print(f"Создан файл {self.path}")

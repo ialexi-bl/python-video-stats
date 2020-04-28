@@ -59,4 +59,9 @@ def launch():
     print("Введите путь к папке с видео:")
     dirname = input()
     main(table, path.expanduser(dirname))
-    input()
+
+    print("Enter, чтобы закрыть...")
+    try:
+        input()
+    except:
+        pass

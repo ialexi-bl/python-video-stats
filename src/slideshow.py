@@ -1,21 +1,37 @@
+import numpy as np
 import cv2
 
 
 def check_slideshow(path):
     video = cv2.VideoCapture(path)
-    prev = [[[]]]
+    frames = 0
     cnt = 1
+
     fps = video.get(cv2.CAP_PROP_FPS)
+    ret, initial_frame = video.read()
+
+    if not ret or initial_frame is None:
+        return "нет", 0, 0
+
+    width, height = (
+        video.get(cv2.CAP_PROP_FRAME_WIDTH),
+        video.get(cv2.CAP_PROP_FRAME_HEIGHT),
+    )
+    prev = initial_frame
+
     while video.isOpened():
+        if frames > 60:
+            return "нет", width, height
+        frames += 1
+
         ret, frame = video.read()
         if not ret:
             break
-        if len(frame) == len(prev) and all([all([all([frame[i][j][k] == prev[i][j][k] for k in range(3)])]
-                                                for j in range(len(frame[0])))] for i in range(len(frame))):
+        if np.equal(frame, prev).all():
             cnt += 1
         else:
             prev = frame
             cnt = 1
         if fps / cnt < 25:
-            return 'да'
-    return 'нет'
+            return "да", width, height
+    return "нет", width, height
