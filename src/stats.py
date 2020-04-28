@@ -1,4 +1,3 @@
-from videoprops import get_video_properties, get_audio_properties
 from moviepy.video.io.VideoFileClip import VideoFileClip
 from moviepy.editor import AudioFileClip
 import os, datetime, cv2
