@@ -65,7 +65,7 @@ class Xlsx:
             self.ws.write(f"D{c}", stats["container"])
             self.ws.write(f"E{c}", stats["width"])
             self.ws.write(f"F{c}", stats["height"])
-            self.ws.write(f"G{c}", round(stats["width"] / stats["height"], 8))
+            self.ws.write(f"G{c}", 'да' if stats["width"] / stats["height"] == 16 / 9 else 'нет')
             self.ws.write(f"H{c}", stats["created"])
             self.ws.write(f"I{c}", stats["fps"])
             self.ws.write(f"J{c}", stats["bitrate"])
