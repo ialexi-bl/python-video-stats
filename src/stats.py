@@ -1,4 +1,5 @@
 from videoprops import get_video_properties, get_audio_properties
+from moviepy.video.io.VideoFileClip import VideoFileClip
 from moviepy.editor import AudioFileClip
 import os, datetime, cv2
 
@@ -25,28 +26,18 @@ def get_stats(path: str):
         video.get(CAP_PROP_FRAME_HEIGHT),
         video.get(CAP_PROP_FRAME_WIDTH),
     )
-
-    print("calculating frames")
-    count = 0
-    # while video.isOpened():
-    #     ret, frame = video.read()
-    #     if ret is False:
-    #         break
-    #     count += 1
-
-    time = count / fps
+    time = VideoFileClip(path).duration
 
     # props = get_video_properties(path)
     videocodec = ""  # props["codec_name"]
 
     audio = AudioFileClip(path)
     channels = audio.nchannels
-    rate = ""
+    # rate = ""
 
     # ~/Videos/теш/Надводная и подводная робототехника
-    # audiocodec, channels, rate = (
+    # audiocodec, rate = (
     #     props["codec_name"],
-    #     props["channels"],
     #     props["sample_rate"],
     # )
     audiocodec = ""

@@ -2,6 +2,13 @@ from threading import Thread
 from os.path import basename
 from .stats import get_stats
 from .xlsx import Xlsx
+from .defects.blur import is_blurred
+from .sound import bad_sound
+from .brightness import bad_brightness
+from .slideshow import check_slideshow
+
+
+first_res = dict()
 
 
 class FirstTableThread(Thread):
@@ -14,6 +21,7 @@ class FirstTableThread(Thread):
     def run(self):
         for video in self.videos:
             stats = get_stats(video)
+            first_res.update({video: stats})
             self.xlsx.write_stats(basename(video), stats)
 
 
@@ -27,6 +35,8 @@ class SecondTableThread(Thread):
     def run(self):
         res = []
         for video in self.videos:
+            res['slideshow'] = check_slideshow(video)
+            res['bad_brightness'] = bad_brightness(video)
             # TODO
             self.xlsx.write_stats(basename(video), res)
 

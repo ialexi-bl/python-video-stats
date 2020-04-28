@@ -1,6 +1,3 @@
-from .defects.blur import is_blurred
-from .sound import bad_sound
-from .brightness import bad_brightness
 from .tables import FirstTableThread
 from .xlsx import Xlsx
 from os import path
