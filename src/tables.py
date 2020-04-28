@@ -44,7 +44,7 @@ class SecondTableThread(Thread):
                 res['orientation'] = 'горизонт'
 
             res['unfocused'] = 'да' if blur_check(video) else 'нет'
-
+            res['sound'] = bad_sound(video, self.name)
             # TODO
             self.xlsx.write_stats(basename(video), res)
 
