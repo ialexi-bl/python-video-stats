@@ -4,37 +4,27 @@ from threading import Thread
 from src.blur import is_blurred
 from src.sound import bad_sound
 from src.brightness import bad_brightness
+from first_table import FirstTableThread
 
 
-results = dict()
-
-
-class Test(Thread):
-    def __init__(self, name):
-        Thread.__init__(self)
-        self.name = name
-
-    def run1(self, n, videos):  # 1st table
-        # TODO: find bitrate; run tests, fill results
-        pass
-
-    def run2(self, n, videos):  # 2nd table
-        # TODO: run tests, fill results
-        pass
-
-    def run3(self, n, videos):  # final table
-        # TODO: run tests, fill results
-        pass
+results = {}
 
 
 def main(table):
+    
     if table == 1:
-        level1 = Wb(expanduser('~\\Desktop\\Критерии 1-го уровня.xlsx'))
+        wb = Wb(expanduser("~\\Desktop\\Критерии 1-го уровня.xlsx"))
+    if table == 1:
+        level1 = 
     elif table == 2:
-        level2 = Wb(expanduser('~\\Desktop\\Критерии 2-го уровня.xlsx'))
+        level2 = Wb(expanduser("~\\Desktop\\Критерии 2-го уровня.xlsx"))
     else:
-        level3 = Wb(expanduser('~\\Desktop\\Крупности.xlsx'))
+        level3 = Wb(expanduser("~\\Desktop\\Крупности.xlsx"))
+
+
+    ws = wb.add_worksheet("Лист 1")
     videos = []
+    
     # TODO: fill videos
     for i in range(8):
         name = "Thread #%s" % i
@@ -52,3 +42,8 @@ def main(table):
         level2.close()
     else:
         level3.close()
+
+if __name__ == 'main':
+    print("Введите путь к папке с видео:")
+    dirname = input()
+    main(dirname)
