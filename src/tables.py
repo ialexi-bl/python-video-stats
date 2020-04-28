@@ -33,7 +33,7 @@ class SecondTableThread(Thread):
         self.xlsx = xlsx
 
     def run(self):
-        res = []
+        res = {}
         for video in self.videos:
             res['slideshow'] = check_slideshow(video)
             res['bad_brightness'] = bad_brightness(video)
