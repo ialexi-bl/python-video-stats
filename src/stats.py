@@ -1,5 +1,5 @@
-import cv2
 from videoprops import get_video_properties, get_audio_properties
+import os, datetime, cv2
 
 
 def stats(path):
@@ -21,4 +21,6 @@ def stats(path):
     videocodec = props['codec_name']
     props = get_audio_properties(path)
     audiocodec, channels, rate = props["codec_name"], props["channels"], props["sample_rate"]
-    return name, h, w, time, fps, container, videocodec, audiocodec, channels, rate
+    created = datetime.datetime.fromtimestamp(os.path.getctime(path))
+    size = os.path.getsize(path)
+    return name, h, w, time, fps, container, videocodec, audiocodec, channels, rate, created, size
