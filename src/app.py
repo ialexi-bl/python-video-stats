@@ -1,9 +1,8 @@
 from .defects.blur import is_blurred
 from .sound import bad_sound
 from .brightness import bad_brightness
-from .first_table import FirstTableThread
+from .tables import FirstTableThread
 from .xlsx import Xlsx
-from threading import Thread
 from os import path
 import os
 
@@ -20,7 +19,7 @@ def main(table, dirname):
     videos = [
         path.join(dirname, filename)
         for filename in filenames
-        if filename[-3:] in ["mp4", "mov"]
+        if filename[-3:] in ["mp4", "mov", "avi"]
     ]
 
     xlsx = Xlsx(table)
