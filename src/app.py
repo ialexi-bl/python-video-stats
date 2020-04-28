@@ -1,4 +1,4 @@
-from .tables import FirstTableThread
+from .tables import *
 from .xlsx import Xlsx
 from os import path
 import os
@@ -27,11 +27,11 @@ def main(table, dirname):
     for i in range(threads_count):
         name = "Thread #%s" % i
         if table == 1:
-            thread = FirstTableThread(i, videos[i::threads_count], xlsx)
+            thread = FirstTableThread(str(i), videos[i::threads_count], xlsx)
         elif table == 2:
-            raise Exception()
+            thread = SecondTableThread(str(i), videos[i::threads_count], xlsx)
         else:
-            raise Exception()
+            thread = ThirdTableThread(str(i), videos[i::threads_count], xlsx)
 
         thread.start()
         threads.append(thread)

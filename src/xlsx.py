@@ -21,12 +21,6 @@ class Xlsx:
         self.task = table
         self.write_titles()
 
-    def write_value(self, cell, check, format=lambda x: x):
-        if check is not None:
-            self.ws.write(cell, format(check))
-        else:
-            self.ws.write(cell, "?")
-
     def write_titles(self):
         if self.task == 1:
             self.ws.write("A1", "Имя")
@@ -36,22 +30,24 @@ class Xlsx:
             self.ws.write("E1", "Ширина, px")
             self.ws.write("F1", "Высота, px")
             self.ws.write("G1", "Соотношение")
-            self.ws.write("H1", "Дата создания")
-            self.ws.write("I1", "FPS")
+            self.ws.write("H1", "Дата создания, гг-мм-дд чч-мм-сс")
+            self.ws.write("I1", "Частота кадров, fps")
             self.ws.write("J1", "Битрейт, Кбит/с")
-            self.ws.write("K1", "Моно/Стерео")
-            self.ws.write("L1", "Частота, кГц")
+            self.ws.write("K1", "Количество звуковых каналов, моно/стерео")
+            self.ws.write("L1", "Частота дискретизации, кГц")
         elif self.task == 2:
             self.ws.write("A1", "Имя")
-            self.ws.write("B1", "Вертик/горизонт")
-            self.ws.write("C1", "Перепады по свету")
-            self.ws.write("D1", "Горизонт завален")
-            self.ws.write("E1", "Размытый фокус")
-            self.ws.write("F1", "Перепады по звуку")
-            self.ws.write("G1", "Слайдшоу")
-            self.ws.write("H1", "Дрожание камеры")
-            self.ws.write("I1", "Соблюден баланс по белому")
-            self.ws.write("J1", "Ракурс напротив глаз")
+            self.ws.write("B1", "Вертикальное/ горизонтальное, В/Г")
+            self.ws.write("C1", "Резкие перепады света в видео, да/нет")
+            self.ws.write("D1", "Наличие заваленного горизонта, да/нет")
+            self.ws.write(
+                "E1", "Отсутствие резкого фокуса хоть на одном кадре видео, да/нет"
+            )
+            self.ws.write("F1", "Резкие перепады по звуку в видео, да/нет")
+            self.ws.write("G1", "Является ли видео слайдшоу, да/нет")
+            self.ws.write("H1", "Дрожание камеры в ролике, да/нет")
+            self.ws.write("I1", "Соблюден ли баланс по белому, да/нет")
+            self.ws.write("J1", "Ракурс соблюден, да/нет")
         else:
             self.ws.write("A1", "Имя")
             self.ws.write("B1", "Лицо человека")
@@ -61,6 +57,12 @@ class Xlsx:
             self.ws.write("F1", "Рука, с")
             self.ws.write("G1", "Ноги, с")
             self.ws.write("H1", "Объект - робот, с")
+
+    def write_value(self, cell, check, format=lambda x: x):
+        if check is not None:
+            self.ws.write(cell, format(check))
+        else:
+            self.ws.write(cell, "?")
 
     def write_stats(self, filename, stats):
         c = self.count

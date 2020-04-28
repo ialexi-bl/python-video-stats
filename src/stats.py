@@ -4,19 +4,9 @@ import subprocess
 import json
 import os
 
-FFPROBE_PATH = os.path.join(os.path.dirname(__file__), "lib\\ffprobe.exe")
-print(FFPROBE_PATH)
 
-
-def run_ffprobe(args):
-    return subprocess.getoutput(f"{FFPROBE_PATH} {args}")
-
-
-def get_stats(path):
-    output = run_ffprobe(
-        f" -v quiet -print_format json -show_streams -show_format {path}"
-    )
-    data = json.loads(output)
+def get_stats(path, ffmpeg):
+    data = ffmpeg.get_data(path)
 
     audio, video = None, None
     for stream in data["streams"]:

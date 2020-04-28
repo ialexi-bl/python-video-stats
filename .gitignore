@@ -3,4 +3,6 @@ __pycache__
 dist
 build
 main.spec
-test*
+*.mp4
+*.mp3
+*.wav
