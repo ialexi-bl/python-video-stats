@@ -7,7 +7,13 @@ from .defects.blur import blur_check
 from .sound import bad_sound
 from .brightness import bad_brightness
 from .slideshow import check_slideshow
-from .defects.horizon import check_rotation_deffects
+
+
+first_res, second_res = dict(), dict()
+
+
+def get_results():
+    return first_res, second_res
 
 
 class FirstTableThread(Thread):
@@ -22,6 +28,7 @@ class FirstTableThread(Thread):
         for video in self.videos:
             stats = get_stats(video, ffmpeg)
             self.xlsx.write_stats(basename(video), stats)
+            first_res.update({video: stats})
 
 
 class SecondTableThread(Thread):
@@ -49,13 +56,8 @@ class SecondTableThread(Thread):
             res["sound"] = bad_sound(video, ffmpeg)
             res["name"] = basename(video)
             # TODO: res['white_balanced'], eyes
-<<<<<<< HEAD
-            self.xlsx.write_defects(video, res)
-=======
-
             second_res.update({video: res})
-            self.xlsx.write_stats(basename(video), res)
->>>>>>> 105b06ceb549be4d1f55f9f8959dca7f1d03f05d
+            self.xlsx.write_defects(basename(video), res)
 
 
 class ThirdTableThread(Thread):
