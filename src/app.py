@@ -22,17 +22,17 @@ def main(table, dirname):
 
     xlsx = Xlsx(table)
 
-    threads_count = 8
+    threads_count = 12
     threads = []
 
     for i in range(threads_count):
         name = "Thread #%s" % i
-        if table == 1:
-            thread = FirstTableThread(str(i), videos[i::threads_count], xlsx)
-        elif table == 2:
-            thread = SecondTableThread(str(i), videos[i::threads_count], xlsx)
-        else:
-            thread = ThirdTableThread(str(i), videos[i::threads_count], xlsx)
+        # if table == 1:
+        thread = FirstTableThread(str(i), videos[i::threads_count], xlsx)
+        # elif table == 2:
+        # thread = SecondTableThread(str(i), videos[i::threads_count], xlsx)
+        # else:
+        # thread = ThirdTableThread(str(i), videos[i::threads_count], xlsx)
 
         thread.start()
         threads.append(thread)
@@ -40,27 +40,27 @@ def main(table, dirname):
     for thread in threads:
         thread.join()
 
+    best = choose_best()
     xlsx.save()
 
 
 def launch():
-    print(
-        "Введите нужную таблицу (1: характеристики, 2: дефекты записи, 3: крупности [НЕ РАБОТАЕТ])"
-    )
+    # print(
+    #     "Введите нужную таблицу (1: характеристики, 2: дефекты записи, 3: крупности [НЕ РАБОТАЕТ])"
+    # )
 
-    try:
-        table = int(input())
-        if table not in [1, 2, 3]:
-            raise Exception()
-    except:
-        print("Неверная таблица")
-        launch()
-        return
+    # try:
+    #     table = int(input())
+    #     if table not in [1, 2, 3]:
+    #         raise Exception()
+    # except:
+    #     print("Неверная таблица")
+    #     launch()
+    #     return
 
     print("Введите путь к папке с видео:")
     dirname = input()
-    main(table, path.expanduser(dirname))
-    choose_best()
+    main(0, path.expanduser(dirname))
     print("Enter, чтобы закрыть...")
     try:
         input()

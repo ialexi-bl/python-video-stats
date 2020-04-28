@@ -4,116 +4,134 @@ from os import path
 xlsx_paths = {
     1: path.expanduser("~/Desktop/Критерии 1-го уровня.xlsx"),
     2: path.expanduser("~/Desktop/Критерии 2-го уровня.xlsx"),
-    3: path.expanduser("~/Desktop/Крупности.xlsx"),
+    3: path.expanduser("~/Desktop/Лучшее.xlsx"),
 }
 
 
 class Xlsx:
     def __init__(self, table):
-        if table not in xlsx_paths:
-            raise Exception("Invalid table")
+        # if table not in xlsx_paths:
+        #     raise Exception("Invalid table")
 
-        self.path = xlsx_paths[table]
-        self.wb = Workbook(self.path)
-        self.ws = self.wb.add_worksheet("Лист 1")
+        # self.path = xlsx_paths[table]
+        self.wb1 = Workbook(xlsx_paths[1])
+        self.ws1 = self.wb1.add_worksheet("List 1")
+        self.wb2 = Workbook(xlsx_paths[2])
+        self.ws2 = self.wb2.add_worksheet("List 1")
 
-        self.count = 2
+        self.savecounter = 1
+        self.count1 = 2
+        self.count2 = 2
         self.task = table
         self.write_titles()
 
-    def write_titles(self):
-        if self.task == 1:
-            self.ws.write("A1", "Имя")
-            self.ws.write("B1", "Размер, Мб")
-            self.ws.write("C1", "Длительность, с")
-            self.ws.write("D1", "Контейнер")
-            self.ws.write("E1", "Ширина, px")
-            self.ws.write("F1", "Высота, px")
-            self.ws.write("G1", "Соотношение")
-            self.ws.write("H1", "Дата создания, гг-мм-дд чч-мм-сс")
-            self.ws.write("I1", "Частота кадров, fps")
-            self.ws.write("J1", "Битрейт, Кбит/с")
-            self.ws.write("K1", "Количество звуковых каналов, моно/стерео")
-            self.ws.write("L1", "Частота дискретизации, кГц")
-        elif self.task == 2:
-            self.ws.write("A1", "Имя")
-            self.ws.write("B1", "Вертикальное/ горизонтальное, В/Г")
-            self.ws.write("C1", "Резкие перепады света в видео, да/нет")
-            self.ws.write("D1", "Наличие заваленного горизонта, да/нет")
-            self.ws.write(
-                "E1", "Отсутствие резкого фокуса хоть на одном кадре видео, да/нет"
-            )
-            self.ws.write("F1", "Резкие перепады по звуку в видео, да/нет")
-            self.ws.write("G1", "Является ли видео слайдшоу, да/нет")
-            self.ws.write("H1", "Дрожание камеры в ролике, да/нет")
-            self.ws.write("I1", "Соблюден ли баланс по белому, да/нет")
-            self.ws.write("J1", "Ракурс соблюден, да/нет")
-        else:
-            self.ws.write("A1", "Имя")
-            self.ws.write("B1", "Лицо человека")
-            self.ws.write("C1", "Средний план, с")
-            self.ws.write("D1", "Крупный план, с")
-            self.ws.write("E1", "Дальний план, с")
-            self.ws.write("F1", "Рука, с")
-            self.ws.write("G1", "Ноги, с")
-            self.ws.write("H1", "Объект - робот, с")
+    def write_best(self, data):
+        wb = Workbook(xlsx_paths[3])
+        ws = wb.add_worksheet()
+        ws.write("A1", "Имя")
+        counter = 2
+        for d in data:
+            ws.write(f"A{counter}", d)
+            counter += 1
 
-    def write_value(self, cell, check, format=lambda x: x):
+    def write_titles(self):
+        self.ws1.write("A1", "Имя")
+        self.ws1.write("B1", "Размер, Мб")
+        self.ws1.write("C1", "Длительность, с")
+        self.ws1.write("D1", "Контейнер")
+        self.ws1.write("E1", "Ширина, px")
+        self.ws1.write("F1", "Высота, px")
+        self.ws1.write("G1", "Соотношение")
+        self.ws1.write("H1", "Дата создания, гг-мм-дд чч-мм-сс")
+        self.ws1.write("I1", "Частота кадров, fps")
+        self.ws1.write("J1", "Битрейт, Кбит/с")
+        self.ws1.write("K1", "Количество звуковых каналов, моно/стерео")
+        self.ws1.write("L1", "Частота дискретизации, кГц")
+
+        self.ws2.write("A1", "Имя")
+        self.ws2.write("B1", "Вертикальное/ горизонтальное, В/Г")
+        self.ws2.write("C1", "Резкие перепады света в видео, да/нет")
+        self.ws2.write("D1", "Наличие заваленного горизонта, да/нет")
+        self.ws2.write(
+            "E1", "Отсутствие резкого фокуса хоть на одном кадре видео, да/нет"
+        )
+        self.ws2.write("F1", "Резкие перепады по звуку в видео, да/нет")
+        self.ws2.write("G1", "Является ли видео слайдшоу, да/нет")
+        self.ws2.write("H1", "Дрожание камеры в ролике, да/нет")
+        self.ws2.write("I1", "Соблюден ли баланс по белому, да/нет")
+        self.ws2.write("J1", "Ракурс соблюден, да/нет")
+
+        # self.ws.write("A1", "Имя")
+        # self.ws.write("B1", "Лицо человека")
+        # self.ws.write("C1", "Средний план, с")
+        # self.ws.write("D1", "Крупный план, с")
+        # self.ws.write("E1", "Дальний план, с")
+        # self.ws.write("F1", "Рука, с")
+        # self.ws.write("G1", "Ноги, с")
+        # self.ws.write("H1", "Объект - робот, с")
+
+    def write_value(self, table, cell, check, format=lambda x: x):
+        ws = self.ws1 if table == 1 else self.ws2
         if check is not None:
-            self.ws.write(cell, format(check))
+            ws.write(cell, format(check))
         else:
-            self.ws.write(cell, "?")
+            ws.write(cell, "?")
 
     def write_stats(self, filename, stats):
-        c = self.count
+        c = self.count1
 
-        self.write_value(f"A{c}", stats["name"])
+        self.write_value(1, f"A{c}", stats["name"])
         # Convert to Mb
-        self.write_value(f"B{c}", stats["size"], lambda x: round(x / 2 * 20, 4))
-        self.write_value(f"C{c}", stats["duration"], lambda x: round(x, 4))
-        self.write_value(f"D{c}", stats["container"])
-        self.write_value(f"E{c}", stats["width"])
-        self.write_value(f"F{c}", stats["height"])
+        self.write_value(1, f"B{c}", stats["size"], lambda x: round(x / 2 * 20, 4))
+        self.write_value(1, f"C{c}", stats["duration"], lambda x: round(x, 4))
+        self.write_value(1, f"D{c}", stats["container"])
+        self.write_value(1, f"E{c}", stats["width"])
+        self.write_value(1, f"F{c}", stats["height"])
         self.write_value(
+            1,
             f"G{c}",
             stats["width"] and stats["height"] and [stats["width"], stats["height"]],
             lambda x: "да" if x[0] / x[1] == 16 / 9 else "нет",
         )
         self.write_value(
+            1,
             f"H{c}",
             stats["created"],
             lambda x: "{}-{}-{} {}-{}-{}".format(
                 x.year, x.month, x.day, x.hour, x.minute, x.second,
             ),
         )
-        self.write_value(f"I{c}", stats["fps"])
-        self.write_value(f"J{c}", stats["bitrate"])
+        self.write_value(1, f"I{c}", stats["fps"])
+        self.write_value(1, f"J{c}", stats["bitrate"])
         self.write_value(
-            f"K{c}", stats["channels"], lambda x: "Моно" if x == 1 else "Стерео"
+            1,
+            f"K{c}",
+            stats["channels"],
+            lambda x: "Моно" if x == 1 else ("Стерео" if x == 2 else x),
         )
-        self.write_value(f"L{c}", stats["frequency"])
+        self.write_value(1, f"L{c}", stats["frequency"])
 
-        self.count += 1
+        self.count1 += 1
 
     def write_defects(self, filename, data):
-        c = self.count
+        c = self.count2
 
-        self.write_value(f"A{c}", path.basename(filename))
+        self.write_value(2, f"A{c}", path.basename(filename))
         # Convert to Mb
-        self.write_value(f"B{c}", data["orientation"])
-        self.write_value(f"C{c}", data["bad_brightness"])
-        self.write_value(f"D{c}", data["rotated"])
-        self.write_value(f"E{c}", data["unfocused"])
-        self.write_value(f"F{c}", data["sound"])
-        self.write_value(f"G{c}", data["slideshow"])
-        self.write_value(f"H{c}", data["unstable"])
+        self.write_value(2, f"B{c}", data["orientation"])
+        self.write_value(2, f"C{c}", data["bad_brightness"])
+        self.write_value(2, f"D{c}", data["rotated"])
+        self.write_value(2, f"E{c}", data["unfocused"])
+        self.write_value(2, f"F{c}", data["sound"])
+        self.write_value(2, f"G{c}", data["slideshow"])
+        self.write_value(2, f"H{c}", data["unstable"])
         # self.write_value(f"I{c}", data["white_balance"])
-        self.write_value(f"I{c}", "?")
+        self.write_value(2, f"I{c}", "?")
         # self.write_value(f"J{c}", stats["bitrate"])
-        self.write_value(f"J{c}", "?")
+        self.write_value(2, f"J{c}", "?")
 
-        self.count += 1
+        self.count2 += 1
 
     def save(self):
-        self.wb.close()
-        print(f"Создан файл {self.path}")
+        self.wb1.close()
+        self.wb2.close()

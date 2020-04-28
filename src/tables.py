@@ -10,6 +10,14 @@ from .slideshow import check_slideshow
 from .defects.horizon import check_rotation_deffects
 
 
+results1 = []
+results2 = []
+
+
+def get_results():
+    return results1, results2
+
+
 class FirstTableThread(Thread):
     def __init__(self, name: str, videos: [str], xlsx: Xlsx):
         Thread.__init__(self)
@@ -21,20 +29,10 @@ class FirstTableThread(Thread):
         ffmpeg = Ffmpeg()
         for video in self.videos:
             stats = get_stats(video, ffmpeg)
+            results1.append(stats)
             self.xlsx.write_stats(basename(video), stats)
 
-
-class SecondTableThread(Thread):
-    def __init__(self, name: str, videos: [str], xlsx: Xlsx):
-        Thread.__init__(self)
-        self.videos = videos
-        self.name = name
-        self.xlsx = xlsx
-
-    def run(self):
-        res = {}
-        ffmpeg = Ffmpeg()
-        for video in self.videos:
+            res = {}
             res["slideshow"], w, h = check_slideshow(video)
             res["bad_brightness"] = bad_brightness(video)
             if h > w:
@@ -49,13 +47,21 @@ class SecondTableThread(Thread):
             res["sound"] = bad_sound(video, ffmpeg)
             res["name"] = basename(video)
             # TODO: res['white_balanced'], eyes
-<<<<<<< HEAD
             self.xlsx.write_defects(video, res)
-=======
+            results2.append(res)
 
-            second_res.update({video: res})
-            self.xlsx.write_stats(basename(video), res)
->>>>>>> 105b06ceb549be4d1f55f9f8959dca7f1d03f05d
+
+# class SecondTableThread(Thread):
+#     def __init__(self, name: str, videos: [str], xlsx: Xlsx):
+#         Thread.__init__(self)
+#         self.videos = videos
+#         self.name = name
+#         self.xlsx = xlsx
+
+#     def run(self):
+#         res = {}
+#         ffmpeg = Ffmpeg()
+#         for video in self.videos:
 
 
 class ThirdTableThread(Thread):

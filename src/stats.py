@@ -37,5 +37,8 @@ def get_stats(path, ffmpeg):
     if audio is not None:
         result["channels"] = int(audio["channels"])
         result["frequency"] = int(audio["sample_rate"])
+    else:
+        result["channels"] = "Нет звука"
+        result["sample_rate"] = "Нет звука"
 
     return result
