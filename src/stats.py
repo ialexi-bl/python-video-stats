@@ -27,7 +27,7 @@ def get_stats(path, ffmpeg):
         "created": datetime.fromtimestamp(os.path.getctime(path)),
         "bitrate": int(data["format"]["bit_rate"]),
         "size": int(data["format"]["size"]),
-        "name": os.path.basename(path),
+        "name": '.'.join([*os.path.basename(video).split('.')[:-1],  os.path.basename(video).split('.')[-1].lower()])
     }
     if video is not None:
         framerate = video["r_frame_rate"].split("/")
