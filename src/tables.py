@@ -48,7 +48,7 @@ class SecondTableThread(Thread):
             res['unstable'] = 'да' if rot[1] else 'нет'
             res['unfocused'] = 'да' if blur_check(video) else 'нет'
             res['sound'] = bad_sound(video, self.name)
-            # TODO
+            # TODO: res['white_balanced'], eyes
             self.xlsx.write_stats(basename(video), res)
 
 
@@ -62,5 +62,5 @@ class ThirdTableThread(Thread):
     def run(self):
         res = []
         for video in self.videos:
-            # TODO
+            # TODO: everything xD
             self.xlsx.write_stats(basename(video), res)

@@ -11,7 +11,7 @@ def bad_sound(path: str, thread):
     try:
         audio.write_audiofile(temp_file)
     except IndexError:
-        return "звук не найден"
+        return "нет"
 
     song = AudioSegment.from_mp3(temp_file)
     for i in range(len(song) - 1):

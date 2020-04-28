@@ -54,13 +54,3 @@ def get_means(frame):
     print("-------\n")
     cv2.imshow("after", cv2.merge(out_channels))
     cv2.waitKey(0)
-
-
-import os.path as p
-
-white = cv2.imread(p.abspath(__file__ + "/../../../white.png"))
-yellow = cv2.imread(p.abspath(__file__ + "/../../../yellow.png"))
-
-get_means(white)
-get_means(yellow)
-# get_means(p.abspath(__file__ + "/../../../yellow.png"))
