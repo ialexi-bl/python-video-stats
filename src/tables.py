@@ -35,16 +35,16 @@ class SecondTableThread(Thread):
     def run(self):
         res = {}
         for video in self.videos:
-            res["slideshow"] = check_slideshow(video)
-            res["bad_brightness"] = bad_brightness(video)
+            res['slideshow'] = check_slideshow(video)
+            res['bad_brightness'] = bad_brightness(video)
             h, w = first_res[video]["height"], first_res[video]["width"]
             if h > w:
-                res["orientation"] = "В"
+                res['orientation'] = 'В'
             else:
-                res["orientation"] = "Г"
+                res['orientation'] = 'Г'
 
-            res["unfocused"] = "да" if blur_check(video) else "нет"
-            res["sound"] = bad_sound(video, self.name)
+            res['unfocused'] = 'да' if blur_check(video) else 'нет'
+            res['sound'] = bad_sound(video, self.name)
             # TODO
             self.xlsx.write_stats(basename(video), res)
 
