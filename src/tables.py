@@ -39,9 +39,9 @@ class SecondTableThread(Thread):
             res['bad_brightness'] = bad_brightness(video)
             h, w = first_res[video]["height"], first_res[video]["width"]
             if h > w:
-                res['orientation'] = 'вертик'
+                res['orientation'] = 'В'
             else:
-                res['orientation'] = 'горизонт'
+                res['orientation'] = 'Г'
 
             res['unfocused'] = 'да' if blur_check(video) else 'нет'
             res['sound'] = bad_sound(video, self.name)
