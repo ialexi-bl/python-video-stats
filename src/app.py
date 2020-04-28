@@ -45,4 +45,4 @@ def main(table, dirname):
 def launch():
     print("Введите путь к папке с видео:")
     dirname = input()
-    main(1, path.expanduser(dirname))
+    main(2, path.expanduser(dirname))
