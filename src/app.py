@@ -27,7 +27,7 @@ def main(table, dirname):
     for i in range(threads_count):
         name = "Thread #%s" % i
         if table == 1:
-            thread = FirstTableThread(i, videos[i::threads_count], xlsx)
+            thread = FirstTableThread(str(i), videos[i::threads_count], xlsx)
         elif table == 2:
             raise Exception()
         else:
