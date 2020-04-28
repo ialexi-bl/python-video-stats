@@ -1,3 +1,4 @@
+from videoprops import get_video_properties, get_audio_properties
 from moviepy.video.io.VideoFileClip import VideoFileClip
 from moviepy.editor import AudioFileClip
 import os, datetime, cv2
@@ -32,7 +33,10 @@ def get_stats(path: str):
     channels = audio.nchannels
     frequency = audio.fps
     # in Kbit
+    print(frequency, channels, bitdepth)
     bitrate = frequency * 1000 * channels * bitdepth / 1024
+
+    audiocodec = ""
     created = datetime.datetime.fromtimestamp(os.path.getctime(path))
     size = os.path.getsize(path)
 
