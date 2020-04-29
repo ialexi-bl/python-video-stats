@@ -8,7 +8,10 @@ def bad_brightness(path: str) -> str:
         video.get(cv2.CAP_PROP_FRAME_HEIGHT),
         video.get(cv2.CAP_PROP_FRAME_WIDTH),
     )
-    prev = np.sum(video.read()[1]) / 3 * h * w
+    ret, frame = video.read()
+    if not ret:
+        return "нет"
+    prev = np.sum(frame) / 3 * h * w
     while video.isOpened():
         ret, frame = video.read()
         if not ret:
