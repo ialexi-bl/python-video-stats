@@ -22,13 +22,13 @@ class Ffmpeg:
 
     def get_data(self, path):
         output = self.run_ffprobe(
-            f"-v quiet -print_format json -show_streams -show_format {path}"
+            f'-v quiet -print_format json -show_streams -show_format "{path}"'
         )
         return json.loads(output)
 
     def video2audio(self, file):
         audio_file = path.join(self.tempfolder.name, path.basename(file) + ".mp3")
-        self.run_ffmpeg(f"-i video.mp4 -f {file} -ab 192000 -vn {audio_file}")
+        self.run_ffmpeg(f'-i video.mp4 -f "{file}" -ab 192000 -vn "{audio_file}"')
         if not path.exists(audio_file):
             return None
         return audio_file
