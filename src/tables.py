@@ -45,7 +45,8 @@ class FirstTableThread(Thread):
                     res["orientation"] = "В"
                 else:
                     res["orientation"] = "Г"
-                rot = check_rotation_deffects(video)
+                # rot = check_rotation_deffects(video)
+                rot = [False, False]
                 res["rotated"] = "да" if rot[1] else "нет"
                 res["unstable"] = "да" if rot[0] else "нет"
                 res["unfocused"] = "нет" if blur_check(video) else "да"
