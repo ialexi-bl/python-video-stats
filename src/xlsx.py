@@ -4,7 +4,7 @@ from os import path
 xlsx_paths = {
     1: path.expanduser("~/Desktop/Критерии 1-го уровня.xlsx"),
     2: path.expanduser("~/Desktop/Критерии 2-го уровня.xlsx"),
-    3: path.expanduser("~/Desktop/Лучшее.xlsx"),
+    3: path.expanduser("~/Desktop/Лучшее Ой Сложно.xlsx"),
 }
 
 
@@ -33,6 +33,7 @@ class Xlsx:
         for d in data:
             ws.write(f"A{counter}", d)
             counter += 1
+        wb.close()
 
     def write_titles(self):
         self.ws1.write("A1", "Имя")

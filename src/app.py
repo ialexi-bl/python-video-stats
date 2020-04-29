@@ -40,8 +40,9 @@ def main(table, dirname):
     for thread in threads:
         thread.join()
 
-    best = choose_best()
     xlsx.save()
+    best = choose_best()
+    xlsx.write_best(best)
 
 
 def launch():
