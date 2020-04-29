@@ -22,9 +22,9 @@ def get_stats(path, ffmpeg):
         "duration": float(data["format"]["duration"]),
         "created": datetime.fromtimestamp(os.path.getctime(path)),
         "bitrate": int(data["format"]["bit_rate"]),
-        "size": int(data["format"]["size"]) / 2 * 20,
+        "size": int(data["format"]["size"]) / 2 ** 20,
         "name": os.path.basename(path),
-    }
+    }+
     if video is not None:
         result["width"] = int(video["width"])
         result["height"] = int(video["height"])

@@ -5,9 +5,7 @@ from .stats import get_stats
 from .xlsx import Xlsx
 from .defects.blur import blur_check
 from .sound import bad_sound
-from .brightness import bad_brightness
 from .slideshow import check_slideshow
-from .defects.horizon import check_rotation_deffects
 
 results1 = []
 results2 = []
