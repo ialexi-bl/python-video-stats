@@ -62,15 +62,6 @@ class Xlsx:
         self.ws2.write("I1", "Соблюден ли баланс по белому, да/нет")
         self.ws2.write("J1", "Ракурс соблюден, да/нет")
 
-        # self.ws.write("A1", "Имя")
-        # self.ws.write("B1", "Лицо человека")
-        # self.ws.write("C1", "Средний план, с")
-        # self.ws.write("D1", "Крупный план, с")
-        # self.ws.write("E1", "Дальний план, с")
-        # self.ws.write("F1", "Рука, с")
-        # self.ws.write("G1", "Ноги, с")
-        # self.ws.write("H1", "Объект - робот, с")
-
     def write_value(self, table, cell, check, format=lambda x: x):
         ws = self.ws1 if table == 1 else self.ws2
         if check is not None:

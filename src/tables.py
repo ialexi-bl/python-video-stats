@@ -8,14 +8,6 @@ from .sound import bad_sound
 from .brightness import bad_brightness
 from .slideshow import check_slideshow
 
-
-first_res, second_res = dict(), dict()
-
-
-def get_results():
-    return first_res, second_res
-
-
 results1 = []
 results2 = []
 
@@ -34,33 +26,44 @@ class FirstTableThread(Thread):
     def run(self):
         ffmpeg = Ffmpeg()
         for video in self.videos:
-            stats = get_stats(video, ffmpeg)
-            results1.append(stats)
-            self.xlsx.write_stats(basename(video), stats)
-            first_res.update({video: stats})
+            try:
+                stats = get_stats(video, ffmpeg)
+                results1.append(stats)
+                self.xlsx.write_stats(basename(video), stats)
+            except:
+                print(
+                    f"Не удалось обработать первый критерии для файла {basename(video)}"
+                )
+                results1.push(None)
 
-            res = {}
-            res["slideshow"], w, h = check_slideshow(video)
-            res["bad_brightness"] = bad_brightness(video)
-            if h > w:
-                res["orientation"] = "В"
-            else:
-                res["orientation"] = "Г"
-            # rot = check_rotation_deffects(video)
-            rot = [False, False]
-            res["rotated"] = "да" if rot[1] else "нет"
-            res["unstable"] = "да" if rot[0] else "нет"
-            res["unfocused"] = "да" if blur_check(video) else "нет"
-            res["sound"] = bad_sound(video, ffmpeg)
-            res["name"] = ".".join(
-                [
-                    *basename(video).split(".")[:-1],
-                    basename(video).split(".")[-1].lower(),
-                ]
-            )
-            # TODO: res['white_balanced'], eyes
-            self.xlsx.write_defects(video, res)
-            results2.append(res)
+            try:
+                res = {}
+                res["slideshow"], w, h = check_slideshow(video)
+                res["bad_brightness"] = bad_brightness(video)
+                if h > w:
+                    res["orientation"] = "В"
+                else:
+                    res["orientation"] = "Г"
+                # rot = check_rotation_deffects(video)
+                rot = [False, False]
+                res["rotated"] = "да" if rot[1] else "нет"
+                res["unstable"] = "да" if rot[0] else "нет"
+                res["unfocused"] = "да" if blur_check(video) else "нет"
+                res["sound"] = bad_sound(video, ffmpeg)
+                res["name"] = ".".join(
+                    [
+                        *basename(video).split(".")[:-1],
+                        basename(video).split(".")[-1].lower(),
+                    ]
+                )
+                # TODO: res['white_balanced'], eyes
+                self.xlsx.write_defects(video, res)
+                results2.append(res)
+            except:
+                print(
+                    f"Не удалось обработать вторые критерии для файла {basename(video)}"
+                )
+                results2.push(None)
 
 
 # class SecondTableThread(Thread):
