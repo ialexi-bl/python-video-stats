@@ -48,7 +48,7 @@ class FirstTableThread(Thread):
                 rot = [False, False]
                 res["rotated"] = "да" if rot[1] else "нет"
                 res["unstable"] = "да" if rot[0] else "нет"
-                res["unfocused"] = "да" if blur_check(video) else "нет"
+                res["unfocused"] = "нет" if blur_check(video) else "да"
                 res["sound"] = bad_sound(video, ffmpeg)
                 res["name"] = ".".join(
                     [
@@ -64,30 +64,3 @@ class FirstTableThread(Thread):
                     f"Не удалось обработать вторые критерии для файла {basename(video)}: {str(e)}"
                 )
                 results2.append(None)
-
-
-# class SecondTableThread(Thread):
-#     def __init__(self, name: str, videos: [str], xlsx: Xlsx):
-#         Thread.__init__(self)
-#         self.videos = videos
-#         self.name = name
-#         self.xlsx = xlsx
-
-#     def run(self):
-#         res = {}
-#         ffmpeg = Ffmpeg()
-#         for video in self.videos:
-
-
-class ThirdTableThread(Thread):
-    def __init__(self, name: str, videos: [str], xlsx: Xlsx):
-        Thread.__init__(self)
-        self.videos = videos
-        self.name = name
-        self.xlsx = xlsx
-
-    def run(self):
-        res = []
-        for video in self.videos:
-            # TODO: everything xD
-            self.xlsx.write_stats(basename(video), res)
