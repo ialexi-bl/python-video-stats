@@ -30,11 +30,11 @@ class FirstTableThread(Thread):
                 stats = get_stats(video, ffmpeg)
                 results1.append(stats)
                 self.xlsx.write_stats(basename(video), stats)
-            except:
+            except Exception as e:
                 print(
-                    f"Не удалось обработать первый критерии для файла {basename(video)}"
+                    f"Не удалось обработать первый критерии для файла {basename(video)}: {e}"
                 )
-                results1.push(None)
+                results1.append(None)
 
             try:
                 res = {}
@@ -59,11 +59,11 @@ class FirstTableThread(Thread):
                 # TODO: res['white_balanced'], eyes
                 self.xlsx.write_defects(video, res)
                 results2.append(res)
-            except:
+            except Exception as e:
                 print(
-                    f"Не удалось обработать вторые критерии для файла {basename(video)}"
+                    f"Не удалось обработать вторые критерии для файла {basename(video)}: {str(e)}"
                 )
-                results2.push(None)
+                results2.append(None)
 
 
 # class SecondTableThread(Thread):
