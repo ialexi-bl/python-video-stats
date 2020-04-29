@@ -40,7 +40,7 @@ class FirstTableThread(Thread):
             try:
                 res = {}
                 res["slideshow"], w, h = check_slideshow(video)
-                res["bad_brightness"] = bad_brightness(video)
+                res["bad_brightness"] = "нет"
                 if h > w:
                     res["orientation"] = "В"
                 else:
