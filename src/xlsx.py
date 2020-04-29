@@ -4,7 +4,7 @@ from os import path
 xlsx_paths = {
     1: path.expanduser("~/Desktop/Критерии 1-го уровня.xlsx"),
     2: path.expanduser("~/Desktop/Критерии 2-го уровня.xlsx"),
-    3: path.expanduser("~/Desktop/Лучшее Ой Сложно.xlsx"),
+    3: path.expanduser("~/Desktop/Список для монтажа (Ой, сложно).xlsx"),
 }
 
 
