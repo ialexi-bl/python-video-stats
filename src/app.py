@@ -25,24 +25,27 @@ def main(table, dirname):
     threads_count = 12
     threads = []
 
-    for i in range(threads_count):
-        name = "Thread #%s" % i
-        # if table == 1:
-        thread = FirstTableThread(str(i), videos[i::threads_count], xlsx)
-        # elif table == 2:
-        # thread = SecondTableThread(str(i), videos[i::threads_count], xlsx)
-        # else:
-        # thread = ThirdTableThread(str(i), videos[i::threads_count], xlsx)
+    try:
+        for i in range(threads_count):
+            name = "Thread #%s" % i
+            # if table == 1:
+            thread = FirstTableThread(str(i), videos[i::threads_count], xlsx)
+            # elif table == 2:
+            # thread = SecondTableThread(str(i), videos[i::threads_count], xlsx)
+            # else:
+            # thread = ThirdTableThread(str(i), videos[i::threads_count], xlsx)
 
-        thread.start()
-        threads.append(thread)
+            thread.start()
+            threads.append(thread)
 
-    for thread in threads:
-        thread.join()
+        for thread in threads:
+            thread.join()
 
-    xlsx.save()
-    best = choose_best()
-    xlsx.write_best(best)
+        xlsx.save()
+        best = choose_best()
+        xlsx.write_best(best)
+    except:
+        xlsx.write_best(list(map(lambda x: path.basename(x), videos)))
 
 
 def launch():

@@ -19,7 +19,6 @@ def get_stats(path, ffmpeg):
         "fps": None,
         "width": None,
         "height": None,
-        "duration": None,
         "channels": None,
         "frequency": None,
         "container": path.split(".")[-1].lower(),
