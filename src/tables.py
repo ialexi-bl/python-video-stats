@@ -48,7 +48,7 @@ class FirstTableThread(Thread):
                 rot = [False, False]
                 res["rotated"] = "да" if rot[1] else "нет"
                 res["unstable"] = "да" if rot[0] else "нет"
-                res["unfocused"] = "да" if blur_check(video) else "нет"
+                res["unfocused"] = "нет" if blur_check(video) else "да"
                 res["sound"] = bad_sound(video, ffmpeg)
                 res["name"] = ".".join(
                     [
