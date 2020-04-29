@@ -104,7 +104,6 @@ class Xlsx:
         c = self.count2
 
         self.write_value(2, f"A{c}", path.basename(filename))
-        # Convert to Mb
         self.write_value(2, f"B{c}", data["orientation"])
         self.write_value(2, f"C{c}", data["bad_brightness"])
         self.write_value(2, f"D{c}", data["rotated"])
@@ -112,7 +111,6 @@ class Xlsx:
         self.write_value(2, f"F{c}", data["sound"])
         self.write_value(2, f"G{c}", data["slideshow"])
         self.write_value(2, f"H{c}", data["unstable"])
-        # self.write_value(f"I{c}", data["white_balance"])
         self.write_value(2, f"I{c}", "?")
         self.write_value(2, f"J{c}", "?")
 

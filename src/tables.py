@@ -7,6 +7,7 @@ from .defects.blur import blur_check
 from .sound import bad_sound
 from .brightness import bad_brightness
 from .slideshow import check_slideshow
+from .defects.horizon import check_rotation_deffects
 
 results1 = []
 results2 = []
@@ -44,19 +45,12 @@ class FirstTableThread(Thread):
                     res["orientation"] = "В"
                 else:
                     res["orientation"] = "Г"
-                # rot = check_rotation_deffects(video)
-                rot = [False, False]
+                rot = check_rotation_deffects(video)
                 res["rotated"] = "да" if rot[1] else "нет"
                 res["unstable"] = "да" if rot[0] else "нет"
                 res["unfocused"] = "нет" if blur_check(video) else "да"
                 res["sound"] = bad_sound(video, ffmpeg)
-                res["name"] = ".".join(
-                    [
-                        *basename(video).split(".")[:-1],
-                        basename(video).split(".")[-1].lower(),
-                    ]
-                )
-                # TODO: res['white_balanced'], eyes
+                res["name"] = basename(video)
                 self.xlsx.write_defects(video, res)
                 results2.append(res)
             except Exception as e:
