@@ -16,9 +16,7 @@ def choose_best():
                     and first[i]["fps"] > 20
                 )
             )
-            # and second[i]["unfocused"] == "нет"
-            # and second[i]["sound"] == "нет"
-            # and second[i]["rotated"] == "нет"
+            and second[i]["unfocused"] == "нет"
         ):
             ans.append(first[i]["name"])
     return ans

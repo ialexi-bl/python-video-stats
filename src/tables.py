@@ -64,30 +64,3 @@ class FirstTableThread(Thread):
                     f"Не удалось обработать вторые критерии для файла {basename(video)}: {str(e)}"
                 )
                 results2.append(None)
-
-
-# class SecondTableThread(Thread):
-#     def __init__(self, name: str, videos: [str], xlsx: Xlsx):
-#         Thread.__init__(self)
-#         self.videos = videos
-#         self.name = name
-#         self.xlsx = xlsx
-
-#     def run(self):
-#         res = {}
-#         ffmpeg = Ffmpeg()
-#         for video in self.videos:
-
-
-class ThirdTableThread(Thread):
-    def __init__(self, name: str, videos: [str], xlsx: Xlsx):
-        Thread.__init__(self)
-        self.videos = videos
-        self.name = name
-        self.xlsx = xlsx
-
-    def run(self):
-        res = []
-        for video in self.videos:
-            # TODO: everything xD
-            self.xlsx.write_stats(basename(video), res)

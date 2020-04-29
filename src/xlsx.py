@@ -10,10 +10,6 @@ xlsx_paths = {
 
 class Xlsx:
     def __init__(self, table):
-        # if table not in xlsx_paths:
-        #     raise Exception("Invalid table")
-
-        # self.path = xlsx_paths[table]
         self.wb1 = Workbook(xlsx_paths[1])
         self.ws1 = self.wb1.add_worksheet("List 1")
         self.wb2 = Workbook(xlsx_paths[2])
@@ -73,7 +69,6 @@ class Xlsx:
         c = self.count1
 
         self.write_value(1, f"A{c}", stats["name"])
-        # Convert to Mb
         self.write_value(1, f"B{c}", stats["size"], lambda x: round(x / 2 * 20, 4))
         self.write_value(1, f"C{c}", stats["duration"], lambda x: round(x, 4))
         self.write_value(1, f"D{c}", stats["container"])
@@ -119,7 +114,6 @@ class Xlsx:
         self.write_value(2, f"H{c}", data["unstable"])
         # self.write_value(f"I{c}", data["white_balance"])
         self.write_value(2, f"I{c}", "?")
-        # self.write_value(f"J{c}", stats["bitrate"])
         self.write_value(2, f"J{c}", "?")
 
         self.count2 += 1
