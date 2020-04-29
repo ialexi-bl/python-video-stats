@@ -21,7 +21,7 @@ def choose_best():
                         or first[i]["height"] is None
                         or (first[i]["width"] / first[i]["height"] == 16 / 9)
                     )
-                    and (first[i]["fps"] is None or first[i]["fps"] > 20)
+                    and (first[i]["fps"] is None or first[i]["fps"] > 25)
                 )
             )
             and second[i]["unfocused"] == "нет"
