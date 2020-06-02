@@ -16,15 +16,12 @@ Written in python 3 (tested on versions 3.7 and 3.8).
 
 ![Table example](/assets/table.png)
 
-## Launching
-
-To launch application, open `main.exe` file in `dist/main` folder. This application only works on Windows platforms.
 
 ## Local testing
 
 Run `main.py` with `python3 main.py` or `python main.py`
 
-## Building
+## Building and launching
 
 You can build this application locally using
 
@@ -33,3 +30,5 @@ python -m PyInstaller -c --add-data "./src/lib/*;./src/lib/" main.py
 ```
 
 You must have `PyInstaller` installed (`pip install PyInstaller`).
+
+To launch application, open `main.exe` file in `dist/main` folder. This application only works on Windows platforms.
