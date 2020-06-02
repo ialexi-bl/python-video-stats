@@ -69,7 +69,7 @@ class Xlsx:
         c = self.count1
 
         self.write_value(1, f"A{c}", stats["name"])
-        self.write_value(1, f"B{c}", stats["size"], lambda x: round(x, 4))
+        self.write_value(1, f"B{c}", round(stats["size"] / 2 ** 20, 4))
         self.write_value(1, f"C{c}", stats["duration"], lambda x: round(x, 4))
         self.write_value(1, f"D{c}", stats["container"])
         self.write_value(1, f"E{c}", stats["width"])
