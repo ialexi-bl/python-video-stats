@@ -1,6 +1,7 @@
 from xlsxwriter import Workbook
 from os import path
 
+
 class Xlsx:
     def __init__(self, path):
         self.wb = Workbook(path)
@@ -34,21 +35,24 @@ class Xlsx:
         c = self.count
 
         self.write_value(f"A{c}", stats["name"])
-        self.write_value(f"B{c}", round(stats["size"] / 2 ** 20, 4))
+        self.write_value(f"B{c}", round(stats["size"] / 2**20, 4))
         self.write_value(f"C{c}", stats["duration"], lambda x: round(x, 4))
         self.write_value(f"D{c}", stats["container"])
         self.write_value(f"E{c}", stats["width"])
         self.write_value(f"F{c}", stats["height"])
         self.write_value(
-            f"G{c}",
-            stats["width"] and stats["height"] and [stats["width"], stats["height"]],
-            lambda x: x[0] / x[1]
-        )
+            f"G{c}", stats["width"] and stats["height"]
+            and [stats["width"], stats["height"]], lambda x: x[0] / x[1])
         self.write_value(
             f"H{c}",
             stats["created"],
             lambda x: "{}-{}-{} {}-{}-{}".format(
-                x.year, x.month, x.day, x.hour, x.minute, x.second,
+                x.year,
+                x.month,
+                x.day,
+                x.hour,
+                x.minute,
+                x.second,
             ),
         )
         self.write_value(f"I{c}", stats["fps"])

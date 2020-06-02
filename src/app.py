@@ -1,6 +1,9 @@
 from .xlsx import Xlsx
 from .stats import get_stats
+from .ffmpeg import Ffmpeg
+from threading import Thread
 from os import path
+import time
 import os
 
 VIDEO_EXT = ["mp4", "mov", "avi"]
@@ -10,11 +13,11 @@ def launch():
     print("Input path to folder containing video files:")
     dirname = input()
 
-    default = get_filename(path.expanduser("~/video-stats.xlsx"))
+    default = get_filename(normalize("~/video-stats.xlsx"))
     print(f"Input path to resulting table (default {default})")
 
     xlsxname = input() or default
-    main(path.expanduser(dirname), path.expanduser(xlsxname))
+    main(normalize(dirname), normalize(xlsxname))
 
     print("Enter, чтобы закрыть...")
     try:
@@ -23,13 +26,11 @@ def launch():
         pass
 
 
-
 def main(dirname, xlsxname):
     if path.isdir(dirname):
         filenames = os.listdir(dirname)
         videos = [
-            path.join(dirname, filename)
-            for filename in filenames
+            path.join(dirname, filename) for filename in filenames
             if get_ext(filename) in VIDEO_EXT
         ]
     elif not path.isfile(dirname):
@@ -41,15 +42,19 @@ def main(dirname, xlsxname):
         print("Not a video file")
         return
 
+    if path.isdir(xlsxname):
+        xlsxname = get_filename(xlsxname + '/video-stats.xlsx')
+        print(f'Saving results to {xlsxname}')
 
-    xlsx = Xlsx(get_filename(xlsxname))
+    xlsx = Xlsx(xlsxname)
 
     threads_count = 12
     threads = []
+    start = time.time()
 
     try:
         for i in range(threads_count):
-            thread = WorkerThread( videos[i::threads_count], xlsx)
+            thread = WorkerThread(videos[i::threads_count], xlsx)
             thread.start()
             threads.append(thread)
 
@@ -59,6 +64,9 @@ def main(dirname, xlsxname):
         xlsx.save()
     except e:
         print(f"Error processing videos: {e}")
+
+    dur = round(time.time() - start, 2)
+    print(f"Done in {dur}s")
 
 
 class WorkerThread(Thread):
@@ -73,22 +81,27 @@ class WorkerThread(Thread):
         for video in self.videos:
             try:
                 stats = get_stats(video, ffmpeg)
-                self.xlsx.write_line(basename(video), stats)
+                self.xlsx.write_line(path.basename(video), stats)
             except Exception as e:
-                print(
-                    f"Failed to process file {basename(video)}: {e}"
-                )
+                print(f"Failed to process file {path.basename(video)}: {e}")
+
+
+def normalize(file):
+    return path.normpath(path.expanduser(file))
 
 
 def get_ext(filename):
     return filename[-3:].lower()
 
+
 def get_filename(filename):
-    if !path.isfile(filename):
+    if not path.isfile(filename):
         return filename
 
+    base, ext = path.splitext(filename)
+
     count = 1
-    while path.isfile(filename + f"({count})"):
+    while path.isfile(f"{base} ({count}){ext}"):
         count += 1
 
-    return filename + f"({count})"
+    return f"{base} ({count}){ext}"
