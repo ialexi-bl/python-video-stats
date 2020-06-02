@@ -28,7 +28,7 @@ def get_stats(path, ffmpeg):
     if video is not None:
         result["width"] = int(video["width"])
         result["height"] = int(video["height"])
-        
+
         if "r_frame_rate" in video:
             framerate = video["r_frame_rate"].split("/")
             if framerate is not None:
@@ -42,6 +42,6 @@ def get_stats(path, ffmpeg):
         result["frequency"] = int(audio["sample_rate"])
     else:
         result["channels"] = "No sound"
-        result["sample_rate"] = "No sound"
+        result["frequency"] = "No sound"
 
     return result

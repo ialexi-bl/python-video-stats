@@ -6,7 +6,7 @@ from os import path
 import time
 import os
 
-VIDEO_EXT = ["mp4", "mov", "avi"]
+VIDEO_EXT = [".mp4", ".mov", ".avi"]
 
 
 def launch():
@@ -31,16 +31,18 @@ def main(dirname, xlsxname):
         filenames = os.listdir(dirname)
         videos = [
             path.join(dirname, filename) for filename in filenames
-            if get_ext(filename) in VIDEO_EXT
+            if path.splitext(filename)[1] in VIDEO_EXT
         ]
     elif not path.isfile(dirname):
         print("No such file")
         return
-    elif get_ext(dirname) in VIDEO_EXT:
+    elif path.splitext(dirname)[1] in VIDEO_EXT:
         videos = [dirname]
     else:
         print("Not a video file")
         return
+
+    print(f"Found {len(videos)} video files")
 
     if path.isdir(xlsxname):
         xlsxname = get_filename(xlsxname + '/video-stats.xlsx')
@@ -88,10 +90,6 @@ class WorkerThread(Thread):
 
 def normalize(file):
     return path.normpath(path.expanduser(file))
-
-
-def get_ext(filename):
-    return filename[-3:].lower()
 
 
 def get_filename(filename):

@@ -18,7 +18,7 @@ class Xlsx:
         self.ws.write("D1", "Format")
         self.ws.write("E1", "Width, px")
         self.ws.write("F1", "Height, px")
-        self.ws.write("G1", "Ratio")
+        self.ws.write("G1", "Aspect ratio")
         self.ws.write("H1", "Created, yy-mm-dd hh-mm-ss")
         self.ws.write("I1", "FPS")
         self.ws.write("J1", "Bitrate, Kbit/s")
