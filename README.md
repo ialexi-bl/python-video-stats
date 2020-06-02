@@ -14,7 +14,7 @@ Written in python 3 (tested on versions 3.7 and 3.8).
 - Amount of audio channels
 - Sampling rate
 
-[Table example](assets/table.png)
+![Table example](/assets/table.png)
 
 ## Launching
 
